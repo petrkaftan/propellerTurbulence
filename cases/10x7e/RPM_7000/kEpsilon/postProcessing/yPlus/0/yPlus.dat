@@ -1,0 +1,6 @@
+# y+ ()       
+# Time        	patch         	min           	max           	average       
+0             	walls	0.000000e+00	0.000000e+00	0.000000e+00
+0             	innerCylinder	0.000000e+00	0.000000e+00	0.000000e+00
+0             	innerCylinder_slave	0.000000e+00	0.000000e+00	0.000000e+00
+0             	propellerTip	6.853713e-01	9.152659e+00	2.823149e+00
