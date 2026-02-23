@@ -1,0 +1,99 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  13
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+10
+(
+    walls
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          30048;
+        startFace       1978962;
+    }
+    inlet
+    {
+        type            patch;
+        nFaces          1024;
+        startFace       2009010;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          256;
+        startFace       2010034;
+    }
+    innerCylinder
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          9658;
+        startFace       2010290;
+    }
+    innerCylinder_slave
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          9768;
+        startFace       2019948;
+    }
+    propellerTip
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          9073;
+        startFace       2029716;
+    }
+    nonConformalCyclic_on_innerCylinder
+    {
+        type            nonConformalCyclic;
+        inGroups        List<word> 1(nonConformalCyclic);
+        nFaces          0;
+        startFace       2038789;
+        matchTolerance  0.0001;
+        neighbourPatch  nonConformalCyclic_on_innerCylinder_slave;
+        transformType   none;
+        originalPatch   innerCylinder;
+    }
+    nonConformalCyclic_on_innerCylinder_slave
+    {
+        type            nonConformalCyclic;
+        inGroups        List<word> 1(nonConformalCyclic);
+        nFaces          0;
+        startFace       2038789;
+        matchTolerance  0.0001;
+        neighbourPatch  nonConformalCyclic_on_innerCylinder;
+        transformType   none;
+        originalPatch   innerCylinder_slave;
+    }
+    nonConformalError_on_innerCylinder
+    {
+        type            nonConformalError;
+        inGroups        List<word> 1(nonConformalError);
+        nFaces          0;
+        startFace       2038789;
+        originalPatch   innerCylinder;
+    }
+    nonConformalError_on_innerCylinder_slave
+    {
+        type            nonConformalError;
+        inGroups        List<word> 1(nonConformalError);
+        nFaces          0;
+        startFace       2038789;
+        originalPatch   innerCylinder_slave;
+    }
+)
+
+// ************************************************************************* //
