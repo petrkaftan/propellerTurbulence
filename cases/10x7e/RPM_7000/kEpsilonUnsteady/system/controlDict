@@ -10,13 +10,13 @@ FoamFile
 
 application     pimpleFoam;
 
-startFrom       startTime;
+startFrom       latestTime;
 
-startTime       0;
+// startTime       0;
 
 stopAt          endTime;
 
-endTime         0.1;
+endTime         0.2;
 
 deltaT          1e-5;
 
@@ -28,7 +28,7 @@ writeInterval   10;
 //writeControl    timeStep;
 //writeInterval   1;
 
-purgeWrite      2;
+purgeWrite      4;
 
 writeFormat     ascii;
 
@@ -109,6 +109,61 @@ functions
             U
             k
             omega
+        );
+    }
+
+    vorticity
+    {
+        type            vorticity;
+        libs            ("libfieldFunctionObjects.so");
+        writeControl    writeTime;
+    }
+
+    Q
+    {
+        type            Q;
+        libs            ("libfieldFunctionObjects.so");
+        writeControl    writeTime;
+    }
+
+    wakeLines
+    {
+        type            sets;
+        libs            ("libsampling.so");
+
+        writeControl    timeStep;
+        writeInterval   1;
+
+        interpolationScheme cellPoint;
+
+        fields          (U vorticity);
+
+        sets
+        (
+            yMinus01
+            {
+                type    uniform;
+                axis    x;
+                start   (-0.30 -0.10 0);
+                end     ( 0.30 -0.10 0);
+                nPoints 25;   // dx = 0.025 over 0.6 m
+            }
+            yMinus02
+            {
+                type    uniform;
+                axis    x;
+                start   (-0.30 -0.20 0);
+                end     ( 0.30 -0.20 0);
+                nPoints 25;
+            }
+            yMinus03
+            {
+                type    uniform;
+                axis    x;
+                start   (-0.30 -0.30 0);
+                end     ( 0.30 -0.30 0);
+                nPoints 25;
+            }
         );
     }
 }
